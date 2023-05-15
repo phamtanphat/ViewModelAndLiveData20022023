@@ -15,6 +15,15 @@ class AuthenticationRepository(var sharePreferenceApp: SharePreferenceApp) {
         return false
     }
 
+    fun getUser(): Triple<String, String, Boolean>? {
+        if (sharePreferenceApp.getBooleanValue("isSaved")) {
+            val email = sharePreferenceApp.getStringValue("email") ?: ""
+            val password = sharePreferenceApp.getStringValue("password") ?: ""
+            return Triple(email, password, true)
+        }
+        return null
+    }
+
     private fun saveAccount(
         email: String,
         password: String,
